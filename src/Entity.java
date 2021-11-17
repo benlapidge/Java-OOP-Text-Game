@@ -1,23 +1,36 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Entity implements gameIF.Entity {
+    HashMap<String, Integer> items = new HashMap<>();
+    char code;
+
+    public Entity(char code) {
+
+        this.code = code;
+    }
+
     @Override
     public char getCode() {
-        return 0;
+
+        return code;
     }
 
     @Override
     public ArrayList<String> getItemNames() {
-        return null;
+
+        return new ArrayList<>(items.keySet());
+    }
+
+    @Override
+    public int getItemQuantity(String name) {
+
+        return items.get(name);
     }
 
     @Override
     public void setItemQuantity(String name, int quantity) {
 
-    }
-
-    @Override
-    public int getItemQuantity(String ItemName) {
-        return 0;
+        items.put(name, quantity);
     }
 }
