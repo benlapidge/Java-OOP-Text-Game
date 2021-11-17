@@ -18,5 +18,12 @@ class Main {
         entity.setItemQuantity("treacle", 2);
         entity.setItemQuantity("stain remover", 1);
         System.out.println(entity.getItemNames());
+
+        //Below used from EX4
+        System.out.println("Hello world!");
+        PlayerImp player = new PlayerImp(0);
+        player.setOrientation(0);
+        System.out.println(player.getCode());
+
     }
 }
