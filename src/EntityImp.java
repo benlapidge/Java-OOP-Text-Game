@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Entity implements gameIF.Entity {
+public class EntityImp implements gameIF.Entity {
     HashMap<String, Integer> items = new HashMap<>();
     char code;
 
-    public Entity(char code) {
+    public EntityImp(char code) {
 
         this.code = code;
     }

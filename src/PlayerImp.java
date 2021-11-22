@@ -1,6 +1,6 @@
 import gameIF.Player;
 
-public class PlayerImp extends Entity implements Player {
+public class PlayerImp extends EntityImp implements Player {
     int orientation;
     char code;
 
