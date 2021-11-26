@@ -27,7 +27,6 @@ public class Block extends EntityImp implements NPC {
     @Override
     public Response performRequest(String request, Player player) {
 
-        ResponseImp response = new ResponseImp(false, "Can't perform this operation");
-        return response;
+        return new ResponseImp(false, "Can't perform this operation");
     }
 }

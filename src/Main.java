@@ -1,59 +1,64 @@
-
-import java.util.ArrayList;
-import gameIF.NPC;
-import gameIF.Response;
-import gameIF.Player;
+import java.util.Scanner;
+import gameIF.*;
 
 class Main {
     public static void main(String[] args) {
-        //Below used from EX1
-        ResponseImp response = new ResponseImp(true,"Message 1");
-        System.out.println("getStatus() returned: " + response.getStatus());
-        System.out.println("getMessage() returned: " + response.getMessage());
-
-        //Below used from EX2
-        ItemLine line = new ItemLine("coin",2);
-        System.out.println("line.getName() returned " + line.getName());
-        System.out.println("line.getQuantity() returned " + line.getQuantity());
-
-        //Below used from EX3
-        EntityImp entityImp = new EntityImp('*');
-        System.out.println("entity.getCode = " + entityImp.getCode());
-        entityImp.setItemQuantity("coins", 20);
-        entityImp.setItemQuantity("handbags", 1);
-        entityImp.setItemQuantity("treacle", 2);
-        entityImp.setItemQuantity("stain remover", 1);
-        System.out.println(entityImp.getItemNames());
-
-        //Below used from EX4
-        System.out.println("Hello world!");
-        PlayerImp player = new PlayerImp(0);
-        player.setOrientation(0);
-        System.out.println(player.getCode());
-
-        //Below used from EX5
-        NPC block = new Block();
-        char code = block.getCode();
-        System.out.println("getCode() returned: " + code);
-        String description = block.getDescription();
-        System.out.println("getDescription() returned: " + description);
-        ArrayList<String> possRequests = block.getPossibleRequests();
-        if (possRequests == null) {
-            System.out.println("getPossibleRequests() returned: null");
+        Scanner scanner = new Scanner(System.in);
+        Game game = setupGame();
+        boolean finished = false;
+        while (!finished) {
+            System.out.print("Next request: ");
+            String requestStr = scanner.nextLine();
+            requestStr = requestStr.trim();
+            String [] requestSplit = requestStr.split("\\W+");
+            if (requestSplit.length > 0) {
+                String verb = requestSplit[0];
+                if (verb.equals("show")) {
+                    if (requestSplit.length > 1) {
+                        String noun = requestSplit[1];
+                        if (noun.equals("map")) {
+                            printMap(game);
+                        }
+                    }
+                }
+                finished = verb.equals("quit");
+            }
         }
-        else {
-            System.out.println("getPossibleRequests() returned an ArrayList of size: " + possRequests.size());
+    }
+
+
+    public static void printMap(Game game) {
+        System.out.println("TODO: FIX INVERSION");
+//initialise char board
+
+        char[][] board = new char[game.getHeight()][game.getWidth()];
+
+        int row;
+        int col;
+
+        for (row = 0; row < board.length; row++) {
+            for (col = 0; col < board[row].length; col++) {
+                Entity ent = game.getEntityAt(col, row);
+                if (ent == null) {
+                    board[row][col] = ('*');
+                } else {
+                    board[row][col] = (ent.getCode());
+                }
+                System.out.print(board[row][col]+ " ");
+            }
+
+            System.out.println();
+
         }
 
-        Response response2 = block.performRequest("eat jam",player);
-        if (response2 == null) {
-            System.out.println("performRequest() returned: null");
-        }
-        else {
-            System.out.println("performRequest() returned a Response with:");
-            System.out.println("   status = " + response2.getStatus());
-            System.out.println("   message = " + response2.getMessage());
-        }
 
+    }
+    public static Game setupGame() {
+        //MODIFY THIS METHOD IF YOU WANT TO CHANGE THE INITIAL GAME STATE
+        Game game = new GameImp(10, 7, 5, 4, 0);
+        game.addEntity(new Block(), 0, 0);
+        game.addEntity(new Block(), 1, 1);
+        game.addEntity(new Block(), 2, 2);
+        return game;
     }
 }
