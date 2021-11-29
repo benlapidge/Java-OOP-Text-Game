@@ -18,17 +18,26 @@ public class PlayerImp extends EntityImp implements Player {
 
     @Override
     public void setOrientation(int orientation) {
-    this.orientation = orientation;
+        this.orientation = orientation;
     }
 
     @Override
     public char getCode() {
         switch (orientation) {
-            case 0 -> code = '↑';
-            case 1 -> code = '→';
-            case 2 -> code = '↓';
-            case 3 -> code = '←';
-            default -> System.out.println("Invalid Direction [only select 1-3]");
+            case 0:
+                code = '↑';
+                break;
+            case 1:
+                code = '→';
+                break;
+            case 2:
+                code = '↓';
+                break;
+            case 3:
+                code = '←';
+                break;
+            default:
+                System.out.println("Invalid Direction [only select 1-3]");
         }
         return code;
     }

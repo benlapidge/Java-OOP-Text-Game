@@ -5,6 +5,10 @@ class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Game game = setupGame();
+        Merchant merchant = new Merchant();
+        System.out.println(merchant.getDescription());
+        System.out.println(merchant.getPossibleRequests());
+
         boolean finished = false;
         while (!finished) {
             System.out.print("Next request: ");
@@ -28,8 +32,6 @@ class Main {
 
 
     public static void printMap(Game game) {
-        System.out.println("TODO: FIX INVERSION");
-//initialise char board
 
         char[][] board = new char[game.getHeight()][game.getWidth()];
 

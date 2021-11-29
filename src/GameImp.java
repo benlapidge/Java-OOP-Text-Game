@@ -10,8 +10,6 @@ public class GameImp implements Game {
     Entity[][] board;
     PlayerImp player;
 
-    //ArrayList<Entity> entities = new ArrayList<Entity>();
-
     public GameImp(int width, int height, int playerX, int playerY, int playerOrientation) {
         this.width = width;
         this.height = height;
