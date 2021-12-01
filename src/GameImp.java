@@ -83,6 +83,12 @@ public class GameImp implements Game {
     @Override
     public NPC getFacingNPC() {
         // You don't need to implement this yet
+        /*
+        int faceCol = 1
+        int facerow = 1
+return (NPC) board[faceCol][faceRow]
+         */
+
         return null;
     }
 
