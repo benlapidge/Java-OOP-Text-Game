@@ -10,10 +10,12 @@ public class ResponseImp implements Response {
     }
 
     public boolean getStatus() {
+
         return status;
     }
 
     public String getMessage()  {
+
         return message;
     }
 

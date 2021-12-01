@@ -58,7 +58,7 @@ public class GameImp implements Game {
 
     @Override
     public void turn(int orientation) {
-        // You don't need to implement this yet
+        playerOrientation = orientation;
     }
 
     @Override

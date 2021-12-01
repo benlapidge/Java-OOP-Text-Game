@@ -30,7 +30,7 @@ public class Merchant extends EntityImp implements NPC {
         inputCommands = request.split(" ");
 
         //checks if item is valid, then checks if it is a buy or sell request. Then performs a buy/sell.
-
+//TODO implements coins and values to each item
 
         if (getItemNames().contains(inputCommands[1])){
             if (inputCommands[0].equals("buy")){

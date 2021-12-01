@@ -19,8 +19,7 @@ public class Block extends EntityImp implements NPC {
 
     @Override
     public ArrayList<String> getPossibleRequests() {
-        ArrayList<String> possibleRequests = new ArrayList<>(0);
-        return possibleRequests;
+        return new ArrayList<>(0);
     }
 
 
