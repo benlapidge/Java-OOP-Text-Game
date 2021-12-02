@@ -52,13 +52,33 @@ public class GameImp implements Game {
 
     @Override
     public Response step() {
-        // You don't need to implement this yet
-        return null;
+        if (player.orientation==0){
+            board[playerY][playerX] = null;
+            board[playerY-1][playerX] = player;
+            playerY--;
+        } else if (player.orientation==1){
+            board[playerY][playerX] = null;
+            board[playerY][playerX+1] = player;
+            playerX++;
+
+        } else if (player.orientation==2){
+            board[playerY][playerX] = null;
+            board[playerY+1][playerX] = player;
+            playerY++;
+
+        } else if (player.orientation==3){
+            board[playerY][playerX] = null;
+            board[playerY][playerX-1] = player;
+            playerX--;
+
+        }
+        return new ResponseImp(true, "test");
     }
 
     @Override
     public void turn(int orientation) {
-        playerOrientation = orientation;
+
+        player.setOrientation(orientation);
     }
 
     @Override

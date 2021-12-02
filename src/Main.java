@@ -1,68 +1,62 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 import gameIF.*;
 
 class Main {
-    private static Scanner scanner = new Scanner(System.in);
-    private static String bar = "====================================================";
-
     public static void main(String[] args) {
-        Player player = new PlayerImp(0);
-        setupEntity(player,"player");
-        Merchant merchant = new Merchant();
-        setupEntity(merchant,"merchant");
+        Scanner scanner = new Scanner(System.in);
+        Game game = setupGame();
+
+
+
         boolean finished = false;
         while (!finished) {
-            System.out.println("Merchant code is: " + merchant.getCode());
-            System.out.println("Merchant description is: " + merchant.getDescription());
-            System.out.print("Items (quantity) owned by player: ");
-            printItems(player);
-            System.out.print("Items (quantity) owned by merchant: ");
-            printItems(merchant);
-            System.out.println("Requests understood by merchant:");
-            printRequests(merchant);
-            System.out.println();
-            System.out.print("Enter request to be sent to merchant or 'quit' to exit program: ");
-            String request = scanner.nextLine().trim();
-            finished = request.equals("quit");
-            if (!finished) {
-                Response response = merchant.performRequest(request, player);
-                if (response == null) {
-                    System.out.println("Response was null");
+            System.out.print("Next request: ");
+            String requestStr = scanner.nextLine();
+            requestStr = requestStr.trim();
+            String [] requestSplit = requestStr.split("\\W+");
+            String verb = requestSplit[0];
+            String noun = requestSplit[1];
+            if (requestSplit.length > 0) {
+                if (verb.equals("show")) {
+                    if (requestSplit.length > 1) {
+                        if (noun.equals("map")) {
+                            printMap(game);
+                        }
+                    }
+                } else if (verb.equals("turn")){
+                    switch(noun){
+                        case "up":
+                            game.turn(0);
+                            break;
+                        case "down":
+                            game.turn(2);
+                            break;
+                        case "left":
+                            game.turn(3);
+                            break;
+                        case "right":
+                            game.turn(1);
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (verb.equals("step")){
+                    System.out.println(game.getPlayer());
+                    System.out.println(game);
+                    game.step();
                 }
-                else {
-                    System.out.println("Response status:" +   response.getStatus());
-                    System.out.println("Response message:" +      response.getMessage());
-                    System.out.println();
-                }
+                finished = verb.equals("quit");
             }
         }
-
     }
 
-    private static void printRequests(NPC npc) {
-        ArrayList<String> possRequests = npc.getPossibleRequests();
-        if (possRequests == null) {
-            System.out.println("null");
-        }
-        else {
-            for (String request:npc.getPossibleRequests()) {
-                System.out.println(request);
-            }
-        }
-    }
-    private static void printItems(Entity entity) {
-        ArrayList<String> itemNames = entity.getItemNames();
-        if (itemNames == null) {
-            System.out.println("null");
-        }
-        else {
-            for (String name: entity.getItemNames()) {
-                System.out.print(name + "(" + entity.getItemQuantity(name) + ") ");
-            }
-            System.out.println();
-        }
-    }
+
+
+
+
+
+
+
     public static void printMap(Game game) {
 
         char[][] board = new char[game.getHeight()][game.getWidth()];
@@ -87,28 +81,12 @@ class Main {
 
 
     }
-
-    private static void setupEntity(Entity entity, String entName) {
-        System.out.println("Setting up " + entName);
-        boolean finished = false;
-        while (!finished) {
-            System.out.print("Enter an item name (or type 'quit') to finish setting up " + entName + ": ");
-            String itemName = scanner.nextLine().trim();
-            finished = itemName.equals("quit");
-            if (!finished) {
-                System.out.print("Enter the quantity of the item that the " + entName + " owns: ");
-                int quantity = -1;
-                try {
-                    quantity = scanner.nextInt();
-                    //Read past end of line
-                    scanner.nextLine();
-                    entity.setItemQuantity(itemName, quantity);
-                }
-                catch (Exception ex){
-                    System.out.println("That's not a valid number!");
-                }
-            }
-        }
-        System.out.println(bar);
+    public static Game setupGame() {
+        //MODIFY THIS METHOD IF YOU WANT TO CHANGE THE INITIAL GAME STATE
+        Game game = new GameImp(10, 7, 3, 4, 0);
+        game.addEntity(new Block(), 2, 1);
+        game.addEntity(new Block(), 8, 5);
+        game.addEntity(new Merchant(), 2, 4);
+        return game;
     }
 }
