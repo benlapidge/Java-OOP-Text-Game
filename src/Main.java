@@ -5,9 +5,6 @@ class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Game game = setupGame();
-
-
-
         boolean finished = false;
         while (!finished) {
             System.out.print("Next request: ");
@@ -20,7 +17,7 @@ class Main {
                 if (verb.equals("show")) {
                     if (requestSplit.length > 1) {
                         if (noun.equals("map")) {
-                            printMap(game);
+                            Map.printMap(game);
                         }
                     }
                 } else if (verb.equals("turn")){
@@ -42,7 +39,7 @@ class Main {
                     }
                 } else if (verb.equals("step")){
                     game.step();
-                    printMap(game);
+                    Map.printMap(game);
 
                 }
                 finished = verb.equals("quit");
@@ -50,37 +47,6 @@ class Main {
         }
     }
 
-
-
-
-
-
-
-
-    public static void printMap(Game game) {
-
-        char[][] board = new char[game.getHeight()][game.getWidth()];
-
-        int row;
-        int col;
-
-        for (row = 0; row < board.length; row++) {
-            for (col = 0; col < board[row].length; col++) {
-                Entity ent = game.getEntityAt(col,row);
-                if (ent == null) {
-                    board[row][col]= ('*');
-                } else {
-                    board[row][col] = (ent.getCode());
-                }
-                System.out.print(board[row][col]+" ");
-            }
-
-            System.out.println();
-
-        }
-
-
-    }
     public static Game setupGame() {
         //MODIFY THIS METHOD IF YOU WANT TO CHANGE THE INITIAL GAME STATE
         Game game = new GameImp(10, 7, 3, 4, 0);

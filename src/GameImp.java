@@ -54,7 +54,9 @@ public class GameImp implements Game {
     public Response step() {
         //TODO: add limits for when playerY-1 etc is out of bounds
         if (player.orientation == 0){
-            if (board[playerY-1][playerX]==null && playerY-1 > height){
+            if (playerY-1 < 0){
+                return new ResponseImp(false, "Out of Bounds");
+            }else if (board[playerY-1][playerX] == null){
             board[playerY][playerX] = null;
             board[playerY-1][playerX] = player;
             playerY--;}
@@ -62,7 +64,9 @@ public class GameImp implements Game {
                 return new ResponseImp(false, "Entity on square");
             }
         } else if (player.orientation == 1){
-            if (board[playerY][playerX+1] == null) {
+            if (playerX+2 > width){
+                return new ResponseImp(false, "Out of Bounds");
+            } else if (board[playerY][playerX+1] == null) {
                 board[playerY][playerX] = null;
                 board[playerY][playerX + 1] = player;
                 playerX++;
@@ -71,7 +75,9 @@ public class GameImp implements Game {
             }
 
         } else if (player.orientation==2){
-            if (board[playerY+1][playerX]==null) {
+            if (playerY+2 > height){
+                return new ResponseImp(false, "Out of Bounds");
+            } else if (board[playerY+1][playerX]==null) {
                 board[playerY][playerX] = null;
                 board[playerY + 1][playerX] = player;
                 playerY++;
@@ -80,7 +86,9 @@ public class GameImp implements Game {
             }
 
         } else if (player.orientation==3){
-            if (board[playerY][playerX-1]==null) {
+            if (playerX-1 < 0){
+                return new ResponseImp(false, "Out of Bounds");
+            } else if (board[playerY][playerX-1]==null) {
                 board[playerY][playerX] = null;
                 board[playerY][playerX - 1] = player;
                 playerX--;
