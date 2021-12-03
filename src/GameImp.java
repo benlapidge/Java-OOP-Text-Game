@@ -50,29 +50,46 @@ public class GameImp implements Game {
 
     }
 
-    @Override
+   @Override
     public Response step() {
-        if (player.orientation==0){
+        //TODO: add limits for when playerY-1 etc is out of bounds
+        if (player.orientation == 0){
+            if (board[playerY-1][playerX]==null && playerY-1 > height){
             board[playerY][playerX] = null;
             board[playerY-1][playerX] = player;
-            playerY--;
-        } else if (player.orientation==1){
-            board[playerY][playerX] = null;
-            board[playerY][playerX+1] = player;
-            playerX++;
+            playerY--;}
+            else {
+                return new ResponseImp(false, "Entity on square");
+            }
+        } else if (player.orientation == 1){
+            if (board[playerY][playerX+1] == null) {
+                board[playerY][playerX] = null;
+                board[playerY][playerX + 1] = player;
+                playerX++;
+            } else {
+                return new ResponseImp(false, "Entity on square");
+            }
 
         } else if (player.orientation==2){
-            board[playerY][playerX] = null;
-            board[playerY+1][playerX] = player;
-            playerY++;
+            if (board[playerY+1][playerX]==null) {
+                board[playerY][playerX] = null;
+                board[playerY + 1][playerX] = player;
+                playerY++;
+            } else{
+                return new ResponseImp(false, "Entity on square");
+            }
 
         } else if (player.orientation==3){
-            board[playerY][playerX] = null;
-            board[playerY][playerX-1] = player;
-            playerX--;
+            if (board[playerY][playerX-1]==null) {
+                board[playerY][playerX] = null;
+                board[playerY][playerX - 1] = player;
+                playerX--;
+            }else{
+                return new ResponseImp(false, "Entity on square");
+            }
 
         }
-        return new ResponseImp(true, "test");
+        return new ResponseImp(true, "Moved to next square");
     }
 
     @Override

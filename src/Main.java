@@ -41,9 +41,9 @@ class Main {
                             break;
                     }
                 } else if (verb.equals("step")){
-                    System.out.println(game.getPlayer());
-                    System.out.println(game);
                     game.step();
+                    printMap(game);
+
                 }
                 finished = verb.equals("quit");
             }
