@@ -52,7 +52,6 @@ public class GameImp implements Game {
 
    @Override
     public Response step() {
-        //TODO: add limits for when playerY-1 etc is out of bounds
         if (player.orientation == 0){
             if (playerY-1 < 0){
                 return new ResponseImp(false, "Out of Bounds");
