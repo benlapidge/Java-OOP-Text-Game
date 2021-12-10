@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import gameIF.*;
 import java.util.ArrayList;
+import java.util.List;
 class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -14,18 +15,8 @@ class Main {
             String verb = requestSplit[0];
 
             //TODO: this is the code to get the possible requests. It works, but it wont apply situationally.
-         /*   if (game.getFacingNPC().getPossibleRequests().contains(verb)){
-                Response response = game.getFacingNPC().performRequest(verb+" "+requestSplit[1], game.getPlayer());
-                if (response == null) {
-                    System.out.println("Response was null");
-                }
-                else {
-                    System.out.println("Response status:" +   response.getStatus());
-                    System.out.println("Response message:" +      response.getMessage());
-                    System.out.println();
-                }
-            }*/
-            if (requestSplit.length > 0) {
+
+          if (requestSplit.length > 0) {
                 if (verb.equals("show")) {
                     if (requestSplit.length > 1) {
                         if (requestSplit[1].equals("map")) {
@@ -79,11 +70,21 @@ class Main {
                     Map.printMap(game);
 
 
-                }
+                } else if (game.getFacingNPC() != null && game.getFacingNPC().getPossibleRequests().contains(verb)){
+                      Response response = game.getFacingNPC().performRequest(verb+" "+requestSplit[1], game.getPlayer());
+                      if (response == null) {
+                          System.out.println("Response was null");
+                      }
+                      else {
+                          System.out.println("Response status: " +   response.getStatus());
+                          System.out.println("Response message: " +      response.getMessage());
+                          System.out.println();
+                      }
+                  }
+              }
                 finished = verb.equals("quit");
             }
         }
-    }
 
     public static Game setupGame() {
         //MODIFY THIS METHOD IF YOU WANT TO CHANGE THE INITIAL GAME STATE

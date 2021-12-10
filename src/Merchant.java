@@ -12,14 +12,14 @@ public class Merchant extends EntityImp implements NPC {
 
     @Override
     public String getDescription() {
-        return "I am a Merchant. Buy or Sell?";
+        return "I am LE MERCHANTE. I have rocks, paper, and scissors.";
     }
 
     @Override
     public ArrayList<String> getPossibleRequests() {
         ArrayList<String> requests = new ArrayList<>();
-        requests.add("buy [rock|paper|scissor]");
-        requests.add("sell [rock|paper|scissor]");
+        requests.add("buy");
+        requests.add("sell");
         return requests;
     }
 
