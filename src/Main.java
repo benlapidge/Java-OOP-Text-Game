@@ -10,7 +10,7 @@ class Main {
             System.out.print("Next request: ");
             String requestStr = scanner.nextLine();
             requestStr = requestStr.trim();
-            String [] requestSplit = requestStr.split("\\W+");
+            String [] requestSplit = requestStr.split("\\W+",2);
             String verb = requestSplit[0];
             String noun = requestSplit[1];
             if (requestSplit.length > 0) {
@@ -41,6 +41,11 @@ class Main {
                     game.step();
                     Map.printMap(game);
 
+                } else if (verb.equals("get")){
+                    if (noun.equals("facing")){
+                        System.out.println(game.getFacingNPC().getDescription());
+                        System.out.println(game.getFacingNPC().getPossibleRequests());
+                    }
                 }
                 finished = verb.equals("quit");
             }

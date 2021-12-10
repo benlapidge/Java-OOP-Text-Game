@@ -126,12 +126,33 @@ public class GameImp implements Game {
 
     @Override
     public NPC getFacingNPC() {
-        // You don't need to implement this yet
-        /*
-        int faceCol = 1
-        int facerow = 1
-return (NPC) board[faceCol][faceRow]
-         */
+        int faceX;
+        int faceY;
+        if (playerOrientation==0){
+            faceY = playerY-1;
+            faceX = playerX;
+            if (board[faceY][faceX] == null){
+                return null;
+            } else return (NPC) board[faceY][faceX];
+        } else if (playerOrientation==1){
+            faceY = playerY;
+            faceX = playerX+1;
+            if (board[faceY][faceX] == null){
+                return null;
+            } else return (NPC) board[faceY][faceX];
+        } else if (playerOrientation==2){
+            faceY = playerY+1;
+            faceX = playerX;
+            if (board[faceY][faceX] == null){
+                return null;
+            } else return (NPC) board[faceY][faceX];
+        } else if (playerOrientation==3){
+            faceY = playerY;
+            faceX = playerX-1;
+            if (board[faceY][faceX] == null){
+                return null;
+            } else return (NPC) board[faceY][faceX];
+        }
 
         return null;
     }
