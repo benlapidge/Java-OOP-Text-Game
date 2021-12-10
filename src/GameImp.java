@@ -103,6 +103,7 @@ public class GameImp implements Game {
     public void turn(int orientation) {
 
         player.setOrientation(orientation);
+
     }
 
     @Override
@@ -128,25 +129,25 @@ public class GameImp implements Game {
     public NPC getFacingNPC() {
         int faceX;
         int faceY;
-        if (playerOrientation==0){
+        if (player.orientation==0){
             faceY = playerY-1;
             faceX = playerX;
             if (board[faceY][faceX] == null){
                 return null;
             } else return (NPC) board[faceY][faceX];
-        } else if (playerOrientation==1){
+        } else if (player.orientation==1){
             faceY = playerY;
             faceX = playerX+1;
             if (board[faceY][faceX] == null){
                 return null;
             } else return (NPC) board[faceY][faceX];
-        } else if (playerOrientation==2){
+        } else if (player.orientation==2){
             faceY = playerY+1;
             faceX = playerX;
             if (board[faceY][faceX] == null){
                 return null;
             } else return (NPC) board[faceY][faceX];
-        } else if (playerOrientation==3){
+        } else if (player.orientation==3){
             faceY = playerY;
             faceX = playerX-1;
             if (board[faceY][faceX] == null){

@@ -14,7 +14,7 @@ public class Block extends EntityImp implements NPC {
     @Override
     public String getDescription() {
         //Replace with correct code
-        return "This is a Block";
+        return "I am 'BLOCKing' you...heh, get it? Cos I'm a block!";
     }
 
     @Override
