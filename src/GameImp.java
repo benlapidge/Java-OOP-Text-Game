@@ -61,49 +61,49 @@ public class GameImp implements Game {
     public Response step() {
         if (player.orientation == 0) {
             if (playerY - 1 < 0) {
-                return new ResponseImp(false, "Out of Bounds");
+                return new ResponseImp(false, "You may not pass");
             } else if (board[playerY - 1][playerX] == null) {
                 board[playerY][playerX] = null;
                 board[playerY - 1][playerX] = player;
                 playerY--;
             } else {
-                return new ResponseImp(false, "Entity on square");
+                return new ResponseImp(false, "Someone is in the way");
             }
         } else if (player.orientation == 1) {
             if (playerX + 2 > width) {
-                return new ResponseImp(false, "Out of Bounds");
+                return new ResponseImp(false, "You may not pass");
             } else if (board[playerY][playerX + 1] == null) {
                 board[playerY][playerX] = null;
                 board[playerY][playerX + 1] = player;
                 playerX++;
             } else {
-                return new ResponseImp(false, "Entity on square");
+                return new ResponseImp(false, "Someone is in the way");
             }
 
         } else if (player.orientation == 2) {
             if (playerY + 2 > height) {
-                return new ResponseImp(false, "Out of Bounds");
+                return new ResponseImp(false, "You may not pass");
             } else if (board[playerY + 1][playerX] == null) {
                 board[playerY][playerX] = null;
                 board[playerY + 1][playerX] = player;
                 playerY++;
             } else {
-                return new ResponseImp(false, "Entity on square");
+                return new ResponseImp(false, "Someone is in the way");
             }
 
         } else if (player.orientation == 3) {
             if (playerX - 1 < 0) {
-                return new ResponseImp(false, "Out of Bounds");
+                return new ResponseImp(false, "You may not pass");
             } else if (board[playerY][playerX - 1] == null) {
                 board[playerY][playerX] = null;
                 board[playerY][playerX - 1] = player;
                 playerX--;
             } else {
-                return new ResponseImp(false, "Entity on square");
+                return new ResponseImp(false, "Someone is in the way");
             }
 
         }
-        return new ResponseImp(true, "Moved to next square");
+        return new ResponseImp(true, "Took a step");
     }
 
     @Override
