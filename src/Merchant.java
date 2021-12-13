@@ -66,7 +66,7 @@ public class Merchant extends EntityImp implements NPC {
                 setItemQuantity(inputCommands[1], quantity);
                 setItemQuantity("coin", getItemQuantity(inputCommands[1]) - 1);
                 player.setItemQuantity(inputCommands[1], player.getItemQuantity(inputCommands[1]) - quantity);
-                player.setItemQuantity("coin", player.getItemQuantity(inputCommands[1]) + 1);
+                player.setItemQuantity("coin", player.getItemQuantity("coin") + quantity);
 
             } else {
                 return new ResponseImp(false, "Invalid Quantity");

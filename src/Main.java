@@ -14,17 +14,19 @@ class Main {
         Thread.sleep(1000);
         System.out.println("I..I don't remember...");
         Thread.sleep(2000);
-        System.out.println("Where am I?");
+        System.out.println("Where..and who am I?");
         Thread.sleep(3000);
         System.out.println(bar);
         System.out.println("You don't know who you are, or where you are. All you know is that you need to move.");
         System.out.println("Here is how to do so:");
         System.out.println("-_-_-_-_-_PLAYER NAVIGATION_-_-_-_-_-_-");
-        System.out.println("Turn [Up | Down | Left | Right]");
-        System.out.println("Step [In facing direction]");
-        System.out.println("Show [Map | Player | Requests | Facing]");
+        System.out.println("turn [up | down | left | right]");
+        System.out.println("step [in facing direction]");
+        System.out.println("show [map | player | requests | facing]");
         System.out.println("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
         System.out.println("Good luck.");
+        System.out.println(bar);
+        System.out.println();
 
         //code
         Scanner scanner = new Scanner(System.in);
@@ -55,15 +57,15 @@ class Main {
                         } else if (requestSplit[1].equals("requests")) {
                             if (game.getFacingNPC() == null) {
                                 System.out.println("-_-_-_-_-_PLAYER NAVIGATION_-_-_-_-_-_-");
-                                System.out.println("Turn [Up | Down | Left | Right]");
-                                System.out.println("Step [In facing direction]");
-                                System.out.println("Show [Map | Player | Requests | Facing]");
+                                System.out.println("turn [up | down | left | right]");
+                                System.out.println("step [in facing direction]");
+                                System.out.println("show [map | player | requests | facing]");
                                 System.out.println("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
                             } else {
                                 System.out.println("-_-_-_-_-_PLAYER NAVIGATION_-_-_-_-_-_-");
-                                System.out.println("Turn [Up | Down | Left | Right]");
-                                System.out.println("Step [In facing direction]");
-                                System.out.println("Show [Map | Player | Requests | Facing]");
+                                System.out.println("turn [up | down | left | right]");
+                                System.out.println("step [in facing direction]");
+                                System.out.println("show [map | player | requests | facing]");
                                 System.out.println("-_-_-_-_-_NPC INTERACTIONS-_-_-_-_-_-_-");
                                 System.out.println(game.getFacingNPC().getPossibleRequests());
 
