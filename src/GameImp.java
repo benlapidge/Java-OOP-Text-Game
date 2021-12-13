@@ -1,5 +1,4 @@
 import gameIF.*;
-import java.util.ArrayList;
 
 public class GameImp implements Game {
     int width;
@@ -27,10 +26,9 @@ public class GameImp implements Game {
         Response response = getFacingNPC().performRequest(request, getPlayer());
         if (response == null) {
             System.out.println("Response was null");
-        }
-        else {
-            System.out.println("Response status: " +   response.getStatus());
-            System.out.println("Response message: " +      response.getMessage());
+        } else {
+            System.out.println("Response status: " + response.getStatus());
+            System.out.println("Response message: " + response.getMessage());
             System.out.println();
         }
         return null;
@@ -44,7 +42,7 @@ public class GameImp implements Game {
 
     @Override
     public boolean addEntity(Entity entity, int column, int row) {
-        if (column > (width-1) || row > (height-1) || column < 0 || row < 0) {
+        if (column > (width - 1) || row > (height - 1) || column < 0 || row < 0) {
 
             return false;
 
@@ -59,22 +57,22 @@ public class GameImp implements Game {
 
     }
 
-   @Override
+    @Override
     public Response step() {
-        if (player.orientation == 0){
-            if (playerY-1 < 0){
+        if (player.orientation == 0) {
+            if (playerY - 1 < 0) {
                 return new ResponseImp(false, "Out of Bounds");
-            }else if (board[playerY-1][playerX] == null){
-            board[playerY][playerX] = null;
-            board[playerY-1][playerX] = player;
-            playerY--;}
-            else {
+            } else if (board[playerY - 1][playerX] == null) {
+                board[playerY][playerX] = null;
+                board[playerY - 1][playerX] = player;
+                playerY--;
+            } else {
                 return new ResponseImp(false, "Entity on square");
             }
-        } else if (player.orientation == 1){
-            if (playerX+2 > width){
+        } else if (player.orientation == 1) {
+            if (playerX + 2 > width) {
                 return new ResponseImp(false, "Out of Bounds");
-            } else if (board[playerY][playerX+1] == null) {
+            } else if (board[playerY][playerX + 1] == null) {
                 board[playerY][playerX] = null;
                 board[playerY][playerX + 1] = player;
                 playerX++;
@@ -82,25 +80,25 @@ public class GameImp implements Game {
                 return new ResponseImp(false, "Entity on square");
             }
 
-        } else if (player.orientation==2){
-            if (playerY+2 > height){
+        } else if (player.orientation == 2) {
+            if (playerY + 2 > height) {
                 return new ResponseImp(false, "Out of Bounds");
-            } else if (board[playerY+1][playerX]==null) {
+            } else if (board[playerY + 1][playerX] == null) {
                 board[playerY][playerX] = null;
                 board[playerY + 1][playerX] = player;
                 playerY++;
-            } else{
+            } else {
                 return new ResponseImp(false, "Entity on square");
             }
 
-        } else if (player.orientation==3){
-            if (playerX-1 < 0){
+        } else if (player.orientation == 3) {
+            if (playerX - 1 < 0) {
                 return new ResponseImp(false, "Out of Bounds");
-            } else if (board[playerY][playerX-1]==null) {
+            } else if (board[playerY][playerX - 1] == null) {
                 board[playerY][playerX] = null;
                 board[playerY][playerX - 1] = player;
                 playerX--;
-            }else{
+            } else {
                 return new ResponseImp(false, "Entity on square");
             }
 
@@ -117,20 +115,18 @@ public class GameImp implements Game {
 
     @Override
     public int getPlayerX() {
-        // Replace with correct code
+
         return playerX;
     }
 
     @Override
     public int getPlayerY() {
-        // Replace with correct code
+
         return playerY;
     }
 
     @Override
     public Player getPlayer() {
-        // Replace with correct code
-
         return player;
     }
 
@@ -138,28 +134,28 @@ public class GameImp implements Game {
     public NPC getFacingNPC() {
         int faceX;
         int faceY;
-        if (player.orientation==0){
-            faceY = playerY-1;
+        if (player.orientation == 0) {
+            faceY = playerY - 1;
             faceX = playerX;
-            if (board[faceY][faceX] == null){
+            if (board[faceY][faceX] == null) {
                 return null;
             } else return (NPC) board[faceY][faceX];
-        } else if (player.orientation==1){
+        } else if (player.orientation == 1) {
             faceY = playerY;
-            faceX = playerX+1;
-            if (board[faceY][faceX] == null){
+            faceX = playerX + 1;
+            if (board[faceY][faceX] == null) {
                 return null;
             } else return (NPC) board[faceY][faceX];
-        } else if (player.orientation==2){
-            faceY = playerY+1;
+        } else if (player.orientation == 2) {
+            faceY = playerY + 1;
             faceX = playerX;
-            if (board[faceY][faceX] == null){
+            if (board[faceY][faceX] == null) {
                 return null;
             } else return (NPC) board[faceY][faceX];
-        } else if (player.orientation==3){
+        } else if (player.orientation == 3) {
             faceY = playerY;
-            faceX = playerX-1;
-            if (board[faceY][faceX] == null){
+            faceX = playerX - 1;
+            if (board[faceY][faceX] == null) {
                 return null;
             } else return (NPC) board[faceY][faceX];
         }
@@ -169,13 +165,11 @@ public class GameImp implements Game {
 
     @Override
     public int getWidth() {
-        // Replace with correct code
         return width;
     }
 
     @Override
     public int getHeight() {
-        // Replace with correct code
         return height;
     }
 }

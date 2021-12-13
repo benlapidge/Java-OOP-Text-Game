@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 import gameIF.NPC;
 import gameIF.Player;
 import gameIF.Response;
@@ -12,7 +13,7 @@ public class Merchant extends EntityImp implements NPC {
 
     @Override
     public String getDescription() {
-        return "I am LE MERCHANTE. What do you want?";
+        return "Wow, have you been robbed? Where is your equipment?";
     }
 
     @Override
@@ -29,41 +30,51 @@ public class Merchant extends EntityImp implements NPC {
         String[] inputCommands = new String[2];
         inputCommands = request.split(" ");
 
-        //checks if item is valid, then checks if it is a buy or sell request. Then performs a buy/sell.
-//TODO implements coins and values to each item
-
-        //
-            if (inputCommands[0].equals("buy")){
-                if (getItemNames().contains(inputCommands[1])) {
-                    System.out.println("How many " + inputCommands[1] + " do you want to buy?");
-                    int quantity = scan.nextInt();
-                    if (getItemQuantity(inputCommands[1]) >= quantity) {
-                        player.setItemQuantity(inputCommands[1], player.getItemQuantity(inputCommands[1]) + quantity);
-                        player.setItemQuantity("coin", player.getItemQuantity("coin") - 2);
-                        setItemQuantity(inputCommands[1], getItemQuantity(inputCommands[1]) - quantity);
-                        setItemQuantity("coin", getItemQuantity("coin") + 2);
-                    } else {
-                        System.out.println("Invalid Quantity");
-                    }
-
-                }
-                return new ResponseImp(false, "I don't have that item");
-            } else if (inputCommands[0].equals("sell")){
-                System.out.println("How many "+inputCommands[1]+" do you want to sell?");
+        if (inputCommands[0].equals("buy")) {
+            if (player.getItemNames().contains(inputCommands[1])) {
+                System.out.println("How many " + inputCommands[1] + " do you want to buy?");
                 int quantity = scan.nextInt();
-               //TODO: make it so the merchant can add items it doesnt already own
-                if(player.getItemQuantity(inputCommands[1]) >= quantity){
-                    setItemQuantity(inputCommands[1],quantity);
-                    setItemQuantity("coin",getItemQuantity(inputCommands[1])-1);
-                    player.setItemQuantity(inputCommands[1],player.getItemQuantity(inputCommands[1])-quantity);
-                    player.setItemQuantity("coin",player.getItemQuantity(inputCommands[1])+1);
-
+                if (getItemQuantity(inputCommands[1]) >= quantity) {
+                    player.setItemQuantity(inputCommands[1], player.getItemQuantity(inputCommands[1]) + quantity);
+                    player.setItemQuantity("coin", player.getItemQuantity("coin") - 2);
+                    setItemQuantity(inputCommands[1], getItemQuantity(inputCommands[1]) - quantity);
+                    setItemQuantity("coin", getItemQuantity("coin") + 2);
                 } else {
-                    System.out.println("Invalid Quantity");
+                    return new ResponseImp(false, "Invalid Quantity");
+                }
+
+            } else if (!getItemNames().contains(inputCommands[1])) {
+                return new ResponseImp(false, "I don't have that item!");
+            } else {
+                System.out.println("How many " + inputCommands[1] + " do you want to buy?");
+                int quantity = scan.nextInt();
+                if (getItemQuantity(inputCommands[1]) >= quantity) {
+                    player.setItemQuantity(inputCommands[1], quantity);
+                    player.setItemQuantity("coin", player.getItemQuantity("coin") - 2);
+                    setItemQuantity(inputCommands[1], getItemQuantity(inputCommands[1]) - quantity);
+                    setItemQuantity("coin", getItemQuantity("coin") + 2);
+                } else {
+                    return new ResponseImp(false, "Invalid Quantity");
                 }
             }
+            return new ResponseImp(true, "Don't take it all at once!");
 
-            return new ResponseImp(true, "Done! Have a pleasant day!");
+        } else if (inputCommands[0].equals("sell")) {
+            System.out.println("How many " + inputCommands[1] + " do you want to sell?");
+            int quantity = scan.nextInt();
+            //TODO: make it so the merchant can add items it doesnt already own
+            if (player.getItemQuantity(inputCommands[1]) >= quantity) {
+                setItemQuantity(inputCommands[1], quantity);
+                setItemQuantity("coin", getItemQuantity(inputCommands[1]) - 1);
+                player.setItemQuantity(inputCommands[1], player.getItemQuantity(inputCommands[1]) - quantity);
+                player.setItemQuantity("coin", player.getItemQuantity(inputCommands[1]) + 1);
+
+            } else {
+                return new ResponseImp(false, "Invalid Quantity");
+            }
         }
+
+        return new ResponseImp(true, "Good luck, and watch out for those blocks. Weird ones they are...");
+    }
 
 }

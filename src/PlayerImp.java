@@ -4,6 +4,7 @@ public class PlayerImp extends EntityImp implements Player {
 
     int orientation;
     char code;
+    String playerName;
 
 
     public PlayerImp(int orientation) {
@@ -37,7 +38,7 @@ public class PlayerImp extends EntityImp implements Player {
                 code = '←';
                 break;
             default:
-                System.out.println("Invalid Direction [only select 1-3]");
+                break;
         }
         return code;
     }

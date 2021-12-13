@@ -7,13 +7,17 @@ public class GameCreator implements gameIF.GameCreator {
         Game game = new GameImp(10, 7, 3, 4, 0);
         game.addEntity(new Block(), 2, 1);
         game.addEntity(new Block(), 8, 5);
+        Chatter chatter = new Chatter();
+        game.addEntity(chatter, 1, 1);
         Merchant merchant = new Merchant();
-        merchant.setItemQuantity("coin",10);
-        merchant.setItemQuantity("paper", 4);
-        game.addEntity(merchant,3,3);
+        merchant.setItemQuantity("coin", 40);
+        merchant.setItemQuantity("soma", 10);
+        merchant.setItemQuantity("soylent", 20);
+        game.addEntity(merchant, 3, 3);
         Player player = game.getPlayer();
-        player.setItemQuantity("coin",4);
-        player.setItemQuantity("rock", 5);
+        player.setItemQuantity("coin", 20);
+        player.setItemQuantity("minerals", 5);
         return game;
+
     }
 }

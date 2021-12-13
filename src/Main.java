@@ -1,9 +1,32 @@
 import java.util.Scanner;
+
 import gameIF.*;
+
 import java.util.ArrayList;
 
 class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+
+        //intro
+        String bar = "---------------------------------";
+        System.out.println(bar);
+        System.out.println("I...I don't feel right.");
+        Thread.sleep(1000);
+        System.out.println("I..I don't remember...");
+        Thread.sleep(2000);
+        System.out.println("Where am I?");
+        Thread.sleep(3000);
+        System.out.println(bar);
+        System.out.println("You don't know who you are, or where you are. All you know is that you need to move.");
+        System.out.println("Here is how to do so:");
+        System.out.println("-_-_-_-_-_PLAYER NAVIGATION_-_-_-_-_-_-");
+        System.out.println("Turn [Up | Down | Left | Right]");
+        System.out.println("Step [In facing direction]");
+        System.out.println("Show [Map | Player | Requests | Facing]");
+        System.out.println("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
+        System.out.println("Good luck.");
+
+        //code
         Scanner scanner = new Scanner(System.in);
         Game game = setupGame();
         boolean finished = false;
@@ -11,32 +34,32 @@ class Main {
             System.out.print("Next request: ");
             String requestStr = scanner.nextLine();
             requestStr = requestStr.trim();
-            String [] requestSplit = requestStr.split("\\W+",2);
+            String[] requestSplit = requestStr.split("\\W+", 2);
             String verb = requestSplit[0];
 
-          if (requestSplit.length > 0) {
+            if (requestSplit.length > 0) {
                 if (verb.equals("show")) {
                     if (requestSplit.length > 1) {
                         if (requestSplit[1].equals("map")) {
                             Map.printMap(game);
-                        } else if (requestSplit[1].equals("player")){
+                        } else if (requestSplit[1].equals("player")) {
                             printItems(game.getPlayer());
-                        } else if (requestSplit[1].equals("facing")){
-                            if (game.getFacingNPC() == null){
+                        } else if (requestSplit[1].equals("facing")) {
+                            if (game.getFacingNPC() == null) {
                                 System.out.println("There's no one here...");
                             } else {
                                 System.out.println(game.getFacingNPC().getDescription());
                                 System.out.println(game.getFacingNPC().getPossibleRequests());
                                 printItems(game.getFacingNPC());
                             }
-                        } else if (requestSplit[1].equals("requests")){
-                            if (game.getFacingNPC() == null){
-                            System.out.println("-_-_-_-_-_PLAYER NAVIGATION_-_-_-_-_-_-");
-                            System.out.println("Turn [Up | Down | Left | Right]");
-                            System.out.println("Step [In facing direction]");
-                            System.out.println("Show [Map | Player | Requests | Facing]");
-                            System.out.println("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
-                        } else {
+                        } else if (requestSplit[1].equals("requests")) {
+                            if (game.getFacingNPC() == null) {
+                                System.out.println("-_-_-_-_-_PLAYER NAVIGATION_-_-_-_-_-_-");
+                                System.out.println("Turn [Up | Down | Left | Right]");
+                                System.out.println("Step [In facing direction]");
+                                System.out.println("Show [Map | Player | Requests | Facing]");
+                                System.out.println("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
+                            } else {
                                 System.out.println("-_-_-_-_-_PLAYER NAVIGATION_-_-_-_-_-_-");
                                 System.out.println("Turn [Up | Down | Left | Right]");
                                 System.out.println("Step [In facing direction]");
@@ -47,8 +70,8 @@ class Main {
                             }
                         }
                     }
-                } else if (verb.equals("turn")){
-                    switch(requestSplit[1]){
+                } else if (verb.equals("turn")) {
+                    switch (requestSplit[1]) {
                         case "up":
                             game.turn(0);
                             break;
@@ -64,23 +87,26 @@ class Main {
                         default:
                             break;
                     }
-                } else if (verb.equals("step")){
+                } else if (verb.equals("step")) {
                     System.out.println(game.step().getMessage());
+                    Map.printMap(game);
 
 
-                } else if (game.getFacingNPC() != null && game.getFacingNPC().getPossibleRequests().contains(verb)){
-                    String request = verb+" "+requestSplit[1];
-                      game.requestFacing(request);
-                  }
-              }
-                finished = verb.equals("quit");
+                } else if (verb.equals("quit")) {
+                    finished = true;
+                } else if (game.getFacingNPC() != null && game.getFacingNPC().getPossibleRequests().contains(verb) || game.getFacingNPC().getPossibleRequests().contains(verb + " " + requestSplit[1])) {
+                    String request = verb + " " + requestSplit[1];
+                    game.requestFacing(request);
+                }
             }
+
         }
+    }
 
-        public static Game setupGame() {
+    public static Game setupGame() {
 
-            GameCreator game = new GameCreator();
-            return game.createGame();
+        GameCreator game = new GameCreator();
+        return game.createGame();
 
     }
 
@@ -88,9 +114,8 @@ class Main {
         ArrayList<String> itemNames = entity.getItemNames();
         if (itemNames == null) {
             System.out.println("null");
-        }
-        else {
-            for (String name: entity.getItemNames()) {
+        } else {
+            for (String name : entity.getItemNames()) {
                 System.out.print(name + "(" + entity.getItemQuantity(name) + ") ");
             }
             System.out.println();
