@@ -27,7 +27,7 @@ public class Merchant extends EntityImp implements NPC {
     @Override
     public Response performRequest(String request, Player player) {
         Scanner scan = new Scanner(System.in);
-        String[] inputCommands = new String[2];
+        String[] inputCommands;
         inputCommands = request.split(" ");
 
         if (inputCommands[0].equals("buy")) {
@@ -62,7 +62,6 @@ public class Merchant extends EntityImp implements NPC {
         } else if (inputCommands[0].equals("sell")) {
             System.out.println("How many " + inputCommands[1] + " do you want to sell?");
             int quantity = scan.nextInt();
-            //TODO: make it so the merchant can add items it doesnt already own
             if (player.getItemQuantity(inputCommands[1]) >= quantity) {
                 setItemQuantity(inputCommands[1], quantity);
                 setItemQuantity("coin", getItemQuantity(inputCommands[1]) - 1);
