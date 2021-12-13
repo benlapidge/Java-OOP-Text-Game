@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import gameIF.*;
 import java.util.ArrayList;
-import java.util.List;
+
 class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -13,8 +13,6 @@ class Main {
             requestStr = requestStr.trim();
             String [] requestSplit = requestStr.split("\\W+",2);
             String verb = requestSplit[0];
-
-            //TODO: this is the code to get the possible requests. It works, but it wont apply situationally.
 
           if (requestSplit.length > 0) {
                 if (verb.equals("show")) {
@@ -29,6 +27,7 @@ class Main {
                             } else {
                                 System.out.println(game.getFacingNPC().getDescription());
                                 System.out.println(game.getFacingNPC().getPossibleRequests());
+                                printItems(game.getFacingNPC());
                             }
                         } else if (requestSplit[1].equals("requests")){
                             if (game.getFacingNPC() == null){
@@ -67,38 +66,22 @@ class Main {
                     }
                 } else if (verb.equals("step")){
                     System.out.println(game.step().getMessage());
-                    Map.printMap(game);
 
 
                 } else if (game.getFacingNPC() != null && game.getFacingNPC().getPossibleRequests().contains(verb)){
-                      Response response = game.getFacingNPC().performRequest(verb+" "+requestSplit[1], game.getPlayer());
-                      if (response == null) {
-                          System.out.println("Response was null");
-                      }
-                      else {
-                          System.out.println("Response status: " +   response.getStatus());
-                          System.out.println("Response message: " +      response.getMessage());
-                          System.out.println();
-                      }
+                    String request = verb+" "+requestSplit[1];
+                      game.requestFacing(request);
                   }
               }
                 finished = verb.equals("quit");
             }
         }
 
-    public static Game setupGame() {
-        //MODIFY THIS METHOD IF YOU WANT TO CHANGE THE INITIAL GAME STATE
-        Game game = new GameImp(10, 7, 3, 4, 0);
-        game.addEntity(new Block(), 2, 1);
-        game.addEntity(new Block(), 8, 5);
-        Merchant merchant = new Merchant();
-        merchant.setItemQuantity("coin",3);
-        merchant.setItemQuantity("paper", 2);
-        game.addEntity(merchant,3,3);
-        Player player = game.getPlayer();
-        player.setItemQuantity("coin",4);
-        player.setItemQuantity("rock", 5);
-        return game;
+        public static Game setupGame() {
+
+            GameCreator game = new GameCreator();
+            return game.createGame();
+
     }
 
     private static void printItems(Entity entity) {

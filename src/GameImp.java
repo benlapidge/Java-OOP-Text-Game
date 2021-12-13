@@ -24,6 +24,15 @@ public class GameImp implements Game {
     @Override
     public Response requestFacing(String request) {
         // You don't need to implement this yet
+        Response response = getFacingNPC().performRequest(request, getPlayer());
+        if (response == null) {
+            System.out.println("Response was null");
+        }
+        else {
+            System.out.println("Response status: " +   response.getStatus());
+            System.out.println("Response message: " +      response.getMessage());
+            System.out.println();
+        }
         return null;
     }
 

@@ -12,7 +12,7 @@ public class Merchant extends EntityImp implements NPC {
 
     @Override
     public String getDescription() {
-        return "I am LE MERCHANTE. I have rocks, paper, and scissors.";
+        return "I am LE MERCHANTE. What do you want?";
     }
 
     @Override
@@ -32,23 +32,32 @@ public class Merchant extends EntityImp implements NPC {
         //checks if item is valid, then checks if it is a buy or sell request. Then performs a buy/sell.
 //TODO implements coins and values to each item
 
-        if (getItemNames().contains(inputCommands[1])){
+        //
             if (inputCommands[0].equals("buy")){
+                if (getItemNames().contains(inputCommands[1])) {
+                    System.out.println("How many " + inputCommands[1] + " do you want to buy?");
+                    int quantity = scan.nextInt();
+                    if (getItemQuantity(inputCommands[1]) >= quantity) {
+                        player.setItemQuantity(inputCommands[1], player.getItemQuantity(inputCommands[1]) + quantity);
+                        player.setItemQuantity("coin", player.getItemQuantity("coin") - 2);
+                        setItemQuantity(inputCommands[1], getItemQuantity(inputCommands[1]) - quantity);
+                        setItemQuantity("coin", getItemQuantity("coin") + 2);
+                    } else {
+                        System.out.println("Invalid Quantity");
+                    }
 
-                System.out.println("How many "+inputCommands[1]+" do you want to buy?");
-                int quantity = scan.nextInt();
-                if(getItemQuantity(inputCommands[1]) >= quantity){
-                    player.setItemQuantity(inputCommands[1], player.getItemQuantity(inputCommands[1])+quantity);
-                    setItemQuantity(inputCommands[1],getItemQuantity(inputCommands[1])-quantity);
-                } else {
-                    System.out.println("Invalid Quantity");
                 }
+                return new ResponseImp(false, "I don't have that item");
             } else if (inputCommands[0].equals("sell")){
                 System.out.println("How many "+inputCommands[1]+" do you want to sell?");
                 int quantity = scan.nextInt();
+               //TODO: make it so the merchant can add items it doesnt already own
                 if(player.getItemQuantity(inputCommands[1]) >= quantity){
+                    setItemQuantity(inputCommands[1],quantity);
+                    setItemQuantity("coin",getItemQuantity(inputCommands[1])-1);
                     player.setItemQuantity(inputCommands[1],player.getItemQuantity(inputCommands[1])-quantity);
-                    setItemQuantity(inputCommands[1],getItemQuantity(inputCommands[1])+quantity);
+                    player.setItemQuantity("coin",player.getItemQuantity(inputCommands[1])+1);
+
                 } else {
                     System.out.println("Invalid Quantity");
                 }
@@ -57,6 +66,4 @@ public class Merchant extends EntityImp implements NPC {
             return new ResponseImp(true, "Done! Have a pleasant day!");
         }
 
-        return new ResponseImp(false, "I don't have that item");
-    }
 }
