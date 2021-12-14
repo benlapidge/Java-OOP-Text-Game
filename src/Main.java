@@ -91,7 +91,6 @@ class Main {
                     }
                 } else if (verb.equals("step")) {
                     System.out.println(game.step().getMessage());
-                    Map.printMap(game);
 
 
                 } else if (verb.equals("quit")) {

@@ -28,18 +28,22 @@ public class Chatter extends EntityImp implements NPC {
     @Override
     public Response performRequest(String request, Player player) {
         Scanner scan = new Scanner(System.in);
-        String[] inputCommands = new String[2];
+        String[] inputCommands;
         inputCommands = request.split(" ");
         if (inputCommands[0].equals("lets") && inputCommands[1].equals("talk")) {
-            System.out.println("Great! What do you want to talk about? [my name | my location | your purpose]");
-            //return new ResponseImp(true, "Great! What do you want to talk about? [my name | my location | your purpose]");
-            if (inputCommands[0].equals("my") && inputCommands[1].equals("name")) {
-                return new ResponseImp(true, "Your name is NULL POINTER, or at least that's what the word around the 'block' is!");
+            System.out.println("Great! What do you want to talk about? [my name | my location | my purpose]");
+            String topic = scan.nextLine();
+            switch (topic){
+                case "my name":
+                    return new ResponseImp(true, "Your name is...'PlayerImp@1030'...or so I am told. What a unique name!");
+                case "my location":
+                    return new ResponseImp(true, "Your location? I don't think anyone really knows where this place is...");
+                case "my purpose":
+                    return new ResponseImp(true, "Your purpose is to gather items from the merchants, and ask me questions!");
+                default:
+                    return new ResponseImp(true, "I don't understand what you are saying...");
             }
-        } else if (inputCommands[0].equals("my") && inputCommands[1].equals("location")){
-            return new ResponseImp(true, "You are located in the grid");
-
-        } //else if ()
-        return new ResponseImp(false, "Oh, sorry...");
+        }
+        return new ResponseImp(true, "Please, speak with me again if you require further assistance.");
     }
 }
