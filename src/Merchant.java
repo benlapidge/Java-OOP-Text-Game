@@ -36,9 +36,9 @@ public class Merchant extends EntityImp implements NPC {
                 int quantity = scan.nextInt();
                 if (getItemQuantity(inputCommands[1]) >= quantity) {
                     player.setItemQuantity(inputCommands[1], player.getItemQuantity(inputCommands[1]) + quantity);
-                    player.setItemQuantity("coin", player.getItemQuantity("coin") - 2);
+                    player.setItemQuantity("coin", player.getItemQuantity("coin") - 2 * quantity);
                     setItemQuantity(inputCommands[1], getItemQuantity(inputCommands[1]) - quantity);
-                    setItemQuantity("coin", getItemQuantity("coin") + 2);
+                    setItemQuantity("coin", getItemQuantity("coin") + 2*quantity);
                 } else {
                     return new ResponseImp(false, "Invalid Quantity");
                 }
@@ -50,9 +50,9 @@ public class Merchant extends EntityImp implements NPC {
                 int quantity = scan.nextInt();
                 if (getItemQuantity(inputCommands[1]) >= quantity) {
                     player.setItemQuantity(inputCommands[1], quantity);
-                    player.setItemQuantity("coin", player.getItemQuantity("coin") - 2);
+                    player.setItemQuantity("coin", player.getItemQuantity("coin") - 2*quantity);
                     setItemQuantity(inputCommands[1], getItemQuantity(inputCommands[1]) - quantity);
-                    setItemQuantity("coin", getItemQuantity("coin") + 2);
+                    setItemQuantity("coin", getItemQuantity("coin") + 2*quantity);
                 } else {
                     return new ResponseImp(false, "Invalid Quantity");
                 }
@@ -64,7 +64,7 @@ public class Merchant extends EntityImp implements NPC {
             int quantity = scan.nextInt();
             if (player.getItemQuantity(inputCommands[1]) >= quantity) {
                 setItemQuantity(inputCommands[1], quantity);
-                setItemQuantity("coin", getItemQuantity(inputCommands[1]) - 1);
+                setItemQuantity("coin", getItemQuantity(inputCommands[1]) - quantity);
                 player.setItemQuantity(inputCommands[1], player.getItemQuantity(inputCommands[1]) - quantity);
                 player.setItemQuantity("coin", player.getItemQuantity("coin") + quantity);
 
