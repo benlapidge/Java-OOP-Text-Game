@@ -7,7 +7,7 @@ import java.util.ArrayList;
 class Main {
     public static void main(String[] args) throws InterruptedException {
 
-        //intro
+        // intro (comment out to skip)
         String bar = "---------------------------------";
         System.out.println(bar);
         System.out.println("I...I don't feel right.");

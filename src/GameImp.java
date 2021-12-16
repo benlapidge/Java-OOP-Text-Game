@@ -22,7 +22,6 @@ public class GameImp implements Game {
 
     @Override
     public Response requestFacing(String request) {
-        // You don't need to implement this yet
         Response response = getFacingNPC().performRequest(request, getPlayer());
         if (response == null) {
             System.out.println("Response was null");
@@ -36,7 +35,6 @@ public class GameImp implements Game {
 
     @Override
     public Entity getEntityAt(int column, int row) {
-
         return board[row][column];
     }
 

@@ -27,7 +27,7 @@ public class KeyLock extends EntityImp implements NPC {
     public Response performRequest(String request, Player player) {
         if (request.equals("open lock")) {
             if (player.getItemNames().contains("key")) {
-                return new ResponseImp(true, "You have unlocked me. I will tell all. You are actually a Java program. This place is not real. That's why your name is so weird (just ask the chatterBox over there!)");
+                return new ResponseImp(true, "You have unlocked me. I will tell all. You are actually a Java program. This place is not real.");
             } else {
                 return new ResponseImp(false, "You do not have the key");
             }
